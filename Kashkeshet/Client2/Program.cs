@@ -19,16 +19,30 @@ namespace Client
                 Thread thread = new Thread(Read);
                 thread.Start(tcpClient);
 
+
                 StreamWriter sWriter = new StreamWriter(tcpClient.GetStream());
+                StreamWriter sWriterclient = new StreamWriter(tcpClient.GetStream());
+
+                sWriterclient.WriteLine($"Client2 connected");
+                sWriterclient.Flush();
+
+
 
                 while (true)
                 {
                     if (tcpClient.Connected)
                     {
+
+
                         Console.WriteLine("please enter your message");
                         string input = Console.ReadLine();
-                        sWriter.WriteLine($"Client 2 write: {input}");
+                        sWriter.WriteLine($"Client write: {input}");
                         sWriter.Flush();
+                        if (input == "bye")
+                        {
+                            sWriterclient.WriteLine($"Client2 disconnected");
+                            sWriterclient.Flush();
+                        }
                     }
                 }
 

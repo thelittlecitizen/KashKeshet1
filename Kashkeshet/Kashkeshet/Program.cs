@@ -34,15 +34,29 @@ namespace Server
         public static void ClientListener(object obj)
         {
             TcpClient tcpClient = (TcpClient)obj;
-            StreamReader reader = new StreamReader(tcpClient.GetStream());
+            //broadcast connected message//
+            StreamReader clientconnected = new StreamReader(tcpClient.GetStream());
+            string messageclient = clientconnected.ReadLine();
+            BroadCast(messageclient, tcpClient);
+            Console.WriteLine(messageclient);
+            ////broadcast disconnected message//
+            StreamReader clientdisconnectesd = new StreamReader(tcpClient.GetStream());
 
-            Console.WriteLine("Client connected");
+
+            StreamReader reader = new StreamReader(tcpClient.GetStream());
 
             while (true)
             {
                 string message = reader.ReadLine();
                 BroadCast(message, tcpClient);
                 Console.WriteLine(message);
+                if (message == "bye")
+                {
+                    string messageclientdis = clientdisconnectesd.ReadLine();
+                    BroadCast(messageclientdis, tcpClient);
+                    Console.WriteLine(messageclientdis);
+
+                }
             }
         }
 
