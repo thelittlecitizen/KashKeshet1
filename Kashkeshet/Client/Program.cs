@@ -12,12 +12,10 @@ namespace Client
     {
         static void Main(string[] args)
         {
+            TcpClient tcpClient = new TcpClient("127.0.0.1", 11000);
+            Console.WriteLine("Client Connected to server.");
             try
             {
-                TcpClient tcpClient = new TcpClient("127.0.0.1", 11000);
-                Console.WriteLine("Client Connected to server.");
-                Console.WriteLine("");
-
                 Thread thread = new Thread(Read);
                 thread.Start(tcpClient);
 
@@ -27,8 +25,9 @@ namespace Client
                 {
                     if (tcpClient.Connected)
                     {
+                        Console.WriteLine("please enter your message");
                         string input = Console.ReadLine();
-                        sWriter.WriteLine(input);
+                        sWriter.WriteLine($"Client write: { input}");
                         sWriter.Flush();
                     }
                 }

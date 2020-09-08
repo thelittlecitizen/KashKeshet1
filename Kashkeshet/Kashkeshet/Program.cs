@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 
+
 namespace Server
 {
     class Program
@@ -18,7 +19,7 @@ namespace Server
             tcpListener = new TcpListener(IPAddress.Any, 11000);
             tcpListener.Start();
 
-            Console.WriteLine("Server started");
+            Console.WriteLine("Server Connected");
 
             while (true)
             {
